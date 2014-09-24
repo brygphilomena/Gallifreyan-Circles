@@ -1,0 +1,109 @@
+<html>
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
+
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+
+
+
+</head>
+<body>
+
+<style type="text/css">
+#wallpapermain{
+		position: absolute;
+		top:0px;
+		left:0px;
+		-webkit-transform:scale(1.1);
+		-webkit-filter:blur(5px);
+		display: none;
+
+}
+</style>
+<div id="wallpapermain"><img src="/var/mobile/Library/SpringBoard/LockBackgroundThumbnail.jpg" width="320"></div>
+
+
+	  <style type="text/css">
+#base {
+  position: absolute;   
+  background-image: url(wallpaper/black.jpg);
+  top:0px;
+  left:0px;
+  max-height: 583px;
+  background-size: 320px;
+  background-repeat: no-repeat;
+  max-width: 320px;
+  height: 583px;
+  width: 320px;
+  display: none;
+  z-index: 0;
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+}
+  </style>
+  <div id="base"></div>
+
+<script type="text/javascript">
+blur=localStorage.getItem('noblur');
+
+if(blur=="yes"){$('#wallpapermain').css('display','block');}
+
+	if(blur=="no"){
+		$('body').css('color','black');
+		$('#wallpapermain').css('display','none');
+		$('#base').css('display','block');
+
+wallpaperchoice=localStorage.getItem('wall');
+blurVal=localStorage.getItem('blurVale');
+changebgfunction(wallpaperchoice);
+
+changeblurfunction(blurVal);
+
+setInterval('loadbg()', 1000);
+loadbg();
+}
+
+
+	function loadbg(){
+currentbg=localStorage.getItem('current');
+currentblurs=localStorage.getItem('currentblur');
+wallpaperchoice=localStorage.getItem('wall');
+blurVal=localStorage.getItem('blurVale');
+if(wallpaperchoice==currentbg){}
+	else{changebgfunction(wallpaperchoice);}
+if(blurVal==currentblurs){}
+	else{changeblurfunction(blurVal);}
+}
+
+
+
+
+function changebgfunction(wallpaperchoice){
+if(wallpaperchoice!=null){
+$('#base').css('background-image',wallpaperchoice);
+ localStorage.setItem('current',wallpaperchoice);
+}
+}
+	
+function changeblurfunction(blurVal){
+if(blurVal>=2){
+  $('#base').css('-webkit-transform','scale(1.1)')
+}
+if(blurVal>=15){
+  $('#base').css('-webkit-transform','scale(1.2)')
+}
+
+var blurVal = 'blur('+blurVal+'px)';
+$("#base").css({"-webkit-filter":blurVal}); 
+localStorage.setItem('currentblur',blurVal);
+}
+ 
+
+</script>
+</body>
+</html>
